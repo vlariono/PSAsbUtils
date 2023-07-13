@@ -9,7 +9,7 @@ Connect-AzAccount
 $connection = Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net -Verbose -AzurePowershell
 ```
 
-2. Connection with connection string
+2. Connect with connection string
 ```powershell
 $connection = Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net -Verbose -ConnectionString '<connection string>'
 ```
