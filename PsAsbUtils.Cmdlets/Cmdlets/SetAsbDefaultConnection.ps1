@@ -1,4 +1,5 @@
-using namespace PsBusUtils.Cmdlets
+using namespace PsAsbUtils.Cmdlets.Interfaces
+using namespace PsAsbUtils.Cmdlets.Constants
 
 function Set-AsbDefaultConnection
 {
@@ -13,6 +14,6 @@ function Set-AsbDefaultConnection
     process
     {
         $prefix = [CmdletConst]::Prefix
-        $PSDefaultParameterValues["*-$prefix*:Connection"] = $Connection
+        $global:PSDefaultParameterValues["*-$prefix*:Connection"] = $Connection
     }
 }
