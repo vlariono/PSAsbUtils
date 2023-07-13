@@ -59,7 +59,7 @@ Send-AsbMessage -Connection $connection -ReceivedMessage $message
 
 ## Disconnect from service bus namespace
 
-10. Disconnect from service bus namespace
+1. Close single connection
 ```powershell
 Disconnect-AsbNamespace -Connection $connection
 ```
