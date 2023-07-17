@@ -12,7 +12,7 @@
 RootModule = 'PsAsbUtils.Cmdlets.dll'
 
 # Version number of this module.
-ModuleVersion = '0.1'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -101,7 +101,7 @@ PrivateData = @{
         # LicenseUri = ''
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/vlariono/PSAsbUtils'
 
         # A URL to an icon representing this module.
         # IconUri = ''
@@ -129,4 +129,3 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
-
