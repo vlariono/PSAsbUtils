@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Cmdlets/Base/" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Cmdlets/SetAsbDefaultConnection.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
