@@ -45,11 +45,11 @@ public class SendServiceBusMessage : ServiceBusQueueCmdlet
             throw new PSSbInvalidSender();
         }
 
-        if (EnqueueAt == default)
+        if (EnqueueAt != default)
         {
-            return _sender.SendMessageAsync(message, cancellationToken);
+            return _sender.ScheduleMessageAsync(message, EnqueueAt, cancellationToken);
         }
 
-        return _sender.ScheduleMessageAsync(message, EnqueueAt, cancellationToken);
+        return _sender.SendMessageAsync(message, cancellationToken);
     }
 }
