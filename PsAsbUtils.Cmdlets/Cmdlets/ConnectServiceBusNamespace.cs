@@ -1,6 +1,7 @@
 ﻿using System.Management.Automation;
 using Azure.Identity;
 using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 using PsAsbUtils.Cmdlets.Cmdlets.Base;
 using PsAsbUtils.Cmdlets.Constants;
 using PsAsbUtils.Cmdlets.Core;
@@ -17,6 +18,8 @@ public class ConnectServiceBusNamespace : PsAsyncCmdlet
         TransportType = ServiceBusTransportType.AmqpWebSockets
     };
 
+    private static readonly ServiceBusAdministrationClientOptions s_serviceBusAdminClientOptions = new();
+
     /// <summary>
     /// ServiceBus namespace
     /// </summary>
@@ -32,7 +35,9 @@ public class ConnectServiceBusNamespace : PsAsyncCmdlet
     protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
         var client = CreateServiceBusClient();
-        var connection = PSServiceBusConnection.Create(client);
+        var adminClient = CreateServiceBusAdminClient();
+
+        var connection = PSServiceBusConnection.Create(client,adminClient);
 
         WriteObject(connection);
         return Task.CompletedTask;
@@ -42,6 +47,13 @@ public class ConnectServiceBusNamespace : PsAsyncCmdlet
     {
         PsConnection.Powershell => new ServiceBusClient(Namespace, new AzurePowerShellCredential(), s_serviceBusClientOptions),
         PsConnection.ConnectionString => new ServiceBusClient(ConnectionString, s_serviceBusClientOptions),
+        _ => throw new NotImplementedException()
+    };
+
+    private ServiceBusAdministrationClient CreateServiceBusAdminClient() => ParameterSetName switch
+    {
+        PsConnection.Powershell => new ServiceBusAdministrationClient(Namespace, new AzurePowerShellCredential(), s_serviceBusAdminClientOptions),
+        PsConnection.ConnectionString => new ServiceBusAdministrationClient(ConnectionString, s_serviceBusAdminClientOptions),
         _ => throw new NotImplementedException()
     };
 }

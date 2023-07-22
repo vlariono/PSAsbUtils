@@ -1,4 +1,6 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using System.Runtime.CompilerServices;
+using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 
 namespace PsAsbUtils.Cmdlets.Interfaces;
 
@@ -14,4 +16,6 @@ public interface IServiceBusConnection : IAsyncDisposable
     public bool TryGetReceiver(object message, out ServiceBusReceiver? receiver);
 
     public ServiceBusSender GetSender(string queueName);
+
+    public IEnumerable<QueueProperties>? GetQueues();
 }

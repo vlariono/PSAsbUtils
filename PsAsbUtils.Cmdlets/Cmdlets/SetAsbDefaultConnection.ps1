@@ -13,7 +13,6 @@ function Set-AsbDefaultConnection
 
     process
     {
-        $prefix = [PsModule]::Prefix
-        $global:PSDefaultParameterValues["*-$prefix*:Connection"] = $DefaultConnection
+        $global:PSDefaultParameterValues[[PsModule]::DefaultConnectionPrefix] = $DefaultConnection
     }
 }

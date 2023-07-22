@@ -24,6 +24,15 @@
     </Content>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Include="Startup.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <TargetPath>Startup.ps1</TargetPath>
+    </Content>
+  </ItemGroup>
+
   <ItemGroup>
     <Content Include="PsAsbUtils.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

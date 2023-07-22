@@ -1,20 +1,24 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Net.Quic;
+using System.Runtime.CompilerServices;
 using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 using PsAsbUtils.Cmdlets.Exceptions;
 using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Core;
 
-public sealed class PSServiceBusConnection : IServiceBusConnection, IMessageTracker
+internal sealed class PSServiceBusConnection : IServiceBusConnection, IMessageTracker
 {
     private static readonly ConditionalWeakTable<IServiceBusConnection, ServiceBusClient> s_connections = new();
 
     private readonly ServiceBusClient _client;
+    private readonly ServiceBusAdministrationClient? _adminClient;
     private readonly ConditionalWeakTable<object, ServiceBusReceiver> _receivers;
 
-    private PSServiceBusConnection(ServiceBusClient client)
+    private PSServiceBusConnection(ServiceBusClient client, ServiceBusAdministrationClient? adminClient)
     {
         _client = client;
+        _adminClient = adminClient;
         _receivers = new();
     }
 
@@ -54,15 +58,34 @@ public sealed class PSServiceBusConnection : IServiceBusConnection, IMessageTrac
         return false;
     }
 
+    public IEnumerable<QueueProperties> GetQueues()
+    {
+        if (_client.IsClosed)
+        {
+            yield break;
+        }
+
+        var enumerator = _adminClient?.GetQueuesAsync().GetAsyncEnumerator();
+        if (enumerator is null)
+        {
+            yield break;
+        }
+
+        while (enumerator.MoveNextAsync().AsTask().GetAwaiter().GetResult())
+        {
+            yield return enumerator.Current;
+        }
+    }
+
     public async ValueTask DisposeAsync()
     {
         await _client.DisposeAsync();
         s_connections.Remove(this);
     }
 
-    internal static IServiceBusConnection Create(ServiceBusClient client)
+    internal static IServiceBusConnection Create(ServiceBusClient client, ServiceBusAdministrationClient? adminClient = null)
     {
-        var connection = new PSServiceBusConnection(client);
+        var connection = new PSServiceBusConnection(client, adminClient);
         s_connections.TryAdd(connection, client);
         return connection;
     }
