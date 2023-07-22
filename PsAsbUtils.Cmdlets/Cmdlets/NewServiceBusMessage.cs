@@ -9,6 +9,9 @@ namespace PsAsbUtils.Cmdlets;
 [Cmdlet(VerbsCommon.New, $"{CmdletConst.Prefix}Message")]
 public sealed class NewServiceBusMessage : PSAsyncCmdlet
 {
+    [Parameter(Mandatory = false, ValueFromPipeline = true)]
+    public ServiceBusReceivedMessage? ReceivedMessage { get; set; }
+
     [Parameter(Mandatory = false)]
     [ValidateNotNull]
     public string? Body { get; set; }
@@ -23,7 +26,7 @@ public sealed class NewServiceBusMessage : PSAsyncCmdlet
 
     [Parameter(Mandatory = false)]
     [ValidateNotNull]
-    public string? MessageId { get; set; } = Guid.NewGuid().ToString("N");
+    public string? MessageId { get; set; }
 
     [Parameter(Mandatory = false)]
     [ValidateNotNull]
@@ -65,7 +68,8 @@ public sealed class NewServiceBusMessage : PSAsyncCmdlet
 
     protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-        var message = new ServiceBusMessage();
+        var message = ReceivedMessage is null ? new ServiceBusMessage() : new ServiceBusMessage(ReceivedMessage);
+
         AssignIfSet(nameof(Body), p => message.Body = BinaryData.FromString((string)p));
         AssignIfSet(nameof(ContentType), p => message.ContentType = (string)p);
         AssignIfSet(nameof(CorrelationId), p => message.CorrelationId = (string)p);
