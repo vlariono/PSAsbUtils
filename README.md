@@ -68,7 +68,7 @@ Send-AsbMessage -Connection $connection -Message $message
 ```
 
 ```powershell
-New-AsbMessage -Body '1234567'|Send-AsbMessage -Connection $connection -QueueName sender
+New-AsbMessage -Body '1234567'|Send-AsbMessage -Connection $connection -QueueName <queue>
 ```
 
 ## Disconnect from service bus namespace
