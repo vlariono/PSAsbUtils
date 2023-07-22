@@ -8,7 +8,7 @@ public static class DictionaryExtension
     {
         foreach (var key in hashtable.Keys.Cast<TKey>())
         {
-            dictionary.Add(key, (TValue)hashtable[key]);
+            dictionary.Add(key, (TValue)hashtable[key!]!);
         }
     }
 }

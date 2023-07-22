@@ -1,6 +1,5 @@
 ﻿using System.Management.Automation;
 using Azure.Messaging.ServiceBus;
-using Microsoft.Azure.Amqp;
 using PsAsbUtils.Cmdlets.Cmdlets.Base;
 using PsAsbUtils.Cmdlets.Constants;
 using PsAsbUtils.Cmdlets.Exceptions;
@@ -15,9 +14,6 @@ public class SendServiceBusMessage : ServiceBusQueueCmdlet
     [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ServiceBusMessage))]
     public ServiceBusMessage Message { get; set; } = null!;
 
-    [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ServiceBusReceivedMessage))]
-    public ServiceBusReceivedMessage ReceivedMessage { get; set; } = null!;
-
     [Parameter(Mandatory = false)]
     public DateTimeOffset EnqueueAt { get; set; }
 
@@ -28,14 +24,8 @@ public class SendServiceBusMessage : ServiceBusQueueCmdlet
     }
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-        var message = ParameterSetName switch
-        {
-            nameof(ServiceBusMessage) => Message,
-            nameof(ServiceBusReceivedMessage) => new ServiceBusMessage(ReceivedMessage),
-            _ => throw new NotImplementedException()
-        };
 
-        await SendMessageAsync(message, cancellationToken);
+        await SendMessageAsync(Message, cancellationToken);
     }
 
     private Task SendMessageAsync(ServiceBusMessage message, CancellationToken cancellationToken)
