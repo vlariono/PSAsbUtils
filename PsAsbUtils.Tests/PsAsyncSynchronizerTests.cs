@@ -1,6 +1,8 @@
-﻿namespace PsAsbUtils.Tests;
-using PsAsbUtils.Cmdlets.Core;
-public class PSAsyncSynchronizerTests
+﻿using PsAsbUtils.Cmdlets.Core;
+
+namespace PsAsbUtils.Tests;
+
+public class PsAsyncSynchronizerTests
 {
     [Fact]
     public void RestoresOriginalContext()

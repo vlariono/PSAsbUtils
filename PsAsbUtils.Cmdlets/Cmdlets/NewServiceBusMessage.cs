@@ -6,10 +6,11 @@ using PsAsbUtils.Cmdlets.Constants;
 
 namespace PsAsbUtils.Cmdlets;
 
-[Cmdlet(VerbsCommon.New, $"{CmdletConst.Prefix}Message")]
-public sealed class NewServiceBusMessage : PSAsyncCmdlet
+[Cmdlet(VerbsCommon.New, $"{PsModule.Prefix}Message")]
+[OutputType(typeof(ServiceBusMessage))]
+public sealed class NewServiceBusMessage : PsAsyncCmdlet
 {
-    [Parameter(Mandatory = false, ValueFromPipeline = true)]
+    [Parameter(Mandatory = false, ValueFromPipeline = true, Position = PsPosition.First)]
     [ValidateNotNull]
     public ServiceBusReceivedMessage? ReceivedMessage { get; set; }
 

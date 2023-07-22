@@ -6,7 +6,7 @@ using PsAsbUtils.Cmdlets.Core;
 
 namespace PsAsbUtils.Tests;
 
-public class PSServiceBusReceiverTests
+public class PsServiceBusReceiverTests
 {
     public class ServiceBusReceiverMock : ServiceBusReceiver
     {

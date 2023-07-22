@@ -5,14 +5,14 @@ using PsAsbUtils.Cmdlets.Constants;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsCommon.Get, $"{CmdletConst.Prefix}Message")]
+[Cmdlet(VerbsCommon.Get, $"{PsModule.Prefix}Message")]
 [OutputType(typeof(ServiceBusReceivedMessage))]
 public class GetServiceBusMessage : ServiceBusQueueCmdlet
 {
-    [Parameter(Mandatory = false)]
+    [Parameter(Mandatory = false, Position = PsPosition.Second)]
     public int MaxMessages { get; set; } = 100;
 
-    [Parameter(Mandatory = false)]
+    [Parameter(Mandatory = false, Position = PsPosition.Third)]
     public int FromSequenceNumber { get; set; } = 0;
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
     {

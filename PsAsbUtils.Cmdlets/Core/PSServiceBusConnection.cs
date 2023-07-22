@@ -79,7 +79,7 @@ public sealed class PSServiceBusConnection : IServiceBusConnection, IMessageTrac
     {
         if (_client.IsClosed)
         {
-            throw new PSSbConnectionIsClosedException();
+            throw new PsSbConnectionIsClosedException();
         }
     }
 }

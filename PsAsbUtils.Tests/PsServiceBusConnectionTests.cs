@@ -5,16 +5,17 @@ using PsAsbUtils.Cmdlets.Exceptions;
 
 namespace PsAsbUtils.Tests;
 
-public class ServiceBusClientMock : ServiceBusClient
+public class PsServiceBusConnectionTests
 {
-    public ServiceBusClientMock()
+    public class ServiceBusClientMock : ServiceBusClient
     {
+        public ServiceBusClientMock()
+        {
 
+        }
     }
-}
 
-public class PSServiceBusConnectionTests
-{
+
     [Fact]
     public void ThrowIfClosed()
     {
@@ -22,8 +23,8 @@ public class PSServiceBusConnectionTests
         serviceBusConnectionMock.Setup(c => c.IsClosed).Returns(true);
         var connection = PSServiceBusConnection.Create(serviceBusConnectionMock.Object);
 
-        Assert.Throws<PSSbConnectionIsClosedException>(() => connection.GetReceiver("Test"));
-        Assert.Throws<PSSbConnectionIsClosedException>(() => connection.GetSender("Test"));
+        Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetReceiver("Test"));
+        Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetSender("Test"));
     }
 
     [Fact]

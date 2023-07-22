@@ -6,9 +6,9 @@ using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsCommon.Get, $"{CmdletConst.Prefix}NamespaceConnection")]
+[Cmdlet(VerbsCommon.Get, $"{PsModule.Prefix}NamespaceConnection")]
 [OutputType(typeof(IServiceBusConnection))]
-public class GetServiceBusNamespaceConnection : ServiceBusClientCmdlet
+public class GetServiceBusNamespaceConnection : PsAsyncCmdlet
 {
     protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {

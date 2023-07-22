@@ -3,11 +3,11 @@ using PsAsbUtils.Cmdlets.Core;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets.Base;
 
-public abstract class PSAsyncCmdlet : PSCmdlet
+public abstract class PsAsyncCmdlet : PSCmdlet
 {
     private readonly CancellationTokenSource _cancellationTokenSource;
 
-    protected PSAsyncCmdlet()
+    protected PsAsyncCmdlet()
     {
         _cancellationTokenSource = new CancellationTokenSource();
     }

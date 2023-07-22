@@ -5,12 +5,9 @@ using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsCommunications.Disconnect, $"{CmdletConst.Prefix}Namespace")]
-public class DisconnectServiceBusNamespace : ServiceBusClientCmdlet
+[Cmdlet(VerbsCommunications.Disconnect, $"{PsModule.Prefix}Namespace")]
+public class DisconnectServiceBusNamespace : ServiceBusCmdlet
 {
-    [Parameter(Mandatory = true, ValueFromPipeline = true)]
-    public IServiceBusConnection Connection { get; set; } = null!;
-
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
         await Connection.DisposeAsync();

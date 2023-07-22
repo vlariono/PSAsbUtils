@@ -6,15 +6,15 @@ using PsAsbUtils.Cmdlets.Exceptions;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsCommunications.Send, $"{CmdletConst.Prefix}Message")]
+[Cmdlet(VerbsCommunications.Send, $"{PsModule.Prefix}Message")]
 public class SendServiceBusMessage : ServiceBusQueueCmdlet
 {
     private ServiceBusSender? _sender;
 
-    [Parameter(Mandatory = true, ValueFromPipeline = true)]
+    [Parameter(Mandatory = true, ValueFromPipeline = true, Position = PsPosition.Second)]
     public ServiceBusMessage Message { get; set; } = null!;
 
-    [Parameter(Mandatory = false)]
+    [Parameter(Mandatory = false, Position = PsPosition.Third)]
     public DateTimeOffset EnqueueAt { get; set; }
 
     protected override Task BeginProcessingAsync(CancellationToken cancellationToken)
@@ -31,7 +31,7 @@ public class SendServiceBusMessage : ServiceBusQueueCmdlet
     {
         if (_sender is null)
         {
-            throw new PSSbInvalidSender();
+            throw new PsSbInvalidSender();
         }
 
         if (EnqueueAt != default)

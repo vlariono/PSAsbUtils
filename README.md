@@ -6,12 +6,12 @@ Azure Service Bus messaging module
 1. Connect with powershell credentials
 ```powershell
 Connect-AzAccount
-$connection = Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net -Verbose -AzurePowershell
+$connection = Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net
 ```
 
 2. Connect with connection string
 ```powershell
-$connection = Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net -Verbose -ConnectionString '<connection string>'
+$connection = Connect-AsbNamespace -ConnectionString '<connection string>'
 ```
 
 3. List active connections
@@ -19,11 +19,9 @@ $connection = Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net
 Get-AsbNamespaceConnection
 ```
 
-## Receive messages from a queue
-
-1. Set default service bus connection. Allows to skip Connection parameter
+4. Set default service bus connection. Allows to skip Connection parameter
 ```powershell
-Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net -Verbose -AzurePowershell|Set-AsbDefaultConnection
+Connect-AsbNamespace -Namespace <namespace>.servicebus.windows.net|Set-AsbDefaultConnection
 ```
 or
 
@@ -31,17 +29,19 @@ or
 Set-AsbDefaultConnection -Connection $connection
 ```
 
-2. Peek messages from a queue
+## Receive messages from a queue
+
+1. Peek messages from a queue
 ```powershell
 Get-AsbMessage -Connection $connection -QueueName <queue>
 ```
 
-3. Receive message from q queue
+2. Receive message from q queue
 ```powershell
 $messages = Receive-AsbMessage -Connection $connection -QueueName <queue>
 ```
 
-4. Messages are received in PeekLock mode and need to be completed
+3. Messages are received in PeekLock mode and need to be completed
 ```powershell
 $messages|Complete-AsbMessage -Connection $connection
 ```
@@ -70,7 +70,6 @@ Send-AsbMessage -Connection $connection -Message $message
 ```powershell
 New-AsbMessage -Body '1234567'|Send-AsbMessage -Connection $connection -QueueName sender
 ```
-
 
 ## Disconnect from service bus namespace
 

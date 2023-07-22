@@ -6,11 +6,11 @@ using PsAsbUtils.Cmdlets.Exceptions;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsLifecycle.Complete, $"{CmdletConst.Prefix}Message")]
+[Cmdlet(VerbsLifecycle.Complete, $"{PsModule.Prefix}Message")]
 [OutputType(typeof(ServiceBusReceivedMessage))]
 public class CompleteServiceBusMessage : ServiceBusCmdlet
 {
-    [Parameter(Mandatory = true, ValueFromPipeline = true)]
+    [Parameter(Mandatory = true, ValueFromPipeline = true, Position = PsPosition.First)]
     public ServiceBusReceivedMessage Message { get; set; } = null!;
 
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
@@ -18,7 +18,7 @@ public class CompleteServiceBusMessage : ServiceBusCmdlet
         if (!Connection.TryGetReceiver(Message, out var receiver) || receiver is null)
         {
             var error = new ErrorRecord(
-                new PSSbInvalidReceiver(),
+                new PsSbInvalidReceiver(),
                 nameof(Message.MessageId),
                 ErrorCategory.InvalidOperation,
                 Message);

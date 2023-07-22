@@ -6,14 +6,14 @@ function Set-AsbDefaultConnection
     [CmdletBinding()]
     param (
         # Connection to set
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
         [IServiceBusConnection]
-        $Connection
+        $DefaultConnection
     )
 
     process
     {
-        $prefix = [CmdletConst]::Prefix
-        $global:PSDefaultParameterValues["*-$prefix*:Connection"] = $Connection
+        $prefix = [PsModule]::Prefix
+        $global:PSDefaultParameterValues["*-$prefix*:Connection"] = $DefaultConnection
     }
 }

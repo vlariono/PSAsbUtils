@@ -8,9 +8,9 @@ using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsCommunications.Connect, $"{CmdletConst.Prefix}Namespace")]
+[Cmdlet(VerbsCommunications.Connect, $"{PsModule.Prefix}Namespace")]
 [OutputType(typeof(IServiceBusConnection))]
-public class ConnectServiceBusNamespace : ServiceBusClientCmdlet
+public class ConnectServiceBusNamespace : PsAsyncCmdlet
 {
     private static readonly ServiceBusClientOptions s_serviceBusClientOptions = new()
     {
@@ -20,21 +20,14 @@ public class ConnectServiceBusNamespace : ServiceBusClientCmdlet
     /// <summary>
     /// ServiceBus namespace
     /// </summary>
-    [Parameter(Mandatory = true)]
+    [Parameter(Mandatory = true, ParameterSetName = PsConnection.Powershell, Position = PsPosition.First)]
     public string Namespace { get; set; } = null!;
 
     /// <summary>
     /// ServiceBus's connection string
     /// </summary>
-    [Parameter(Mandatory = true, ParameterSetName = nameof(ServiceBusCredentialType.ConnectionString))]
-    [ValidateNotNullOrEmpty]
+    [Parameter(Mandatory = true, ParameterSetName = PsConnection.ConnectionString, Position = PsPosition.First)]
     public string ConnectionString { get; set; } = null!;
-
-    /// <summary>
-    /// ServiceBus's connection string
-    /// </summary>
-    [Parameter(Mandatory = true, ParameterSetName = nameof(ServiceBusCredentialType.Powershell))]
-    public SwitchParameter AzurePowershell { get; set; }
 
     protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
@@ -47,8 +40,8 @@ public class ConnectServiceBusNamespace : ServiceBusClientCmdlet
 
     private ServiceBusClient CreateServiceBusClient() => ParameterSetName switch
     {
-        nameof(ServiceBusCredentialType.Powershell) => new ServiceBusClient(Namespace, new AzurePowerShellCredential(), s_serviceBusClientOptions),
-        nameof(ServiceBusCredentialType.ConnectionString) => new ServiceBusClient(ConnectionString, s_serviceBusClientOptions),
+        PsConnection.Powershell => new ServiceBusClient(Namespace, new AzurePowerShellCredential(), s_serviceBusClientOptions),
+        PsConnection.ConnectionString => new ServiceBusClient(ConnectionString, s_serviceBusClientOptions),
         _ => throw new NotImplementedException()
     };
 }

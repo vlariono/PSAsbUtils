@@ -5,12 +5,12 @@ using PsAsbUtils.Cmdlets.Constants;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
-[Cmdlet(VerbsCommunications.Receive, $"{CmdletConst.Prefix}Message")]
+[Cmdlet(VerbsCommunications.Receive, $"{PsModule.Prefix}Message")]
 [OutputType(typeof(ServiceBusReceivedMessage))]
 public class ReceiveServiceBusMessage : ServiceBusQueueCmdlet
 {
     [Parameter(Mandatory = false)]
-    public TimeSpan MaxWaitTime { get; set; } = TimeSpan.FromSeconds(5);
+    public TimeSpan MaxWaitTime { get; set; } = TimeSpan.FromSeconds(10);
 
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
@@ -19,7 +19,10 @@ public class ReceiveServiceBusMessage : ServiceBusQueueCmdlet
         do
         {
             message = await receiver.ReceiveMessageAsync(MaxWaitTime, cancellationToken);
-            WriteObject(message);
+            if (message is not null)
+            {
+                WriteObject(message);
+            }
         }
         while (message is not null);
     }
