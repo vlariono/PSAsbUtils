@@ -10,6 +10,7 @@ namespace PsAsbUtils.Cmdlets;
 public sealed class NewServiceBusMessage : PSAsyncCmdlet
 {
     [Parameter(Mandatory = false, ValueFromPipeline = true)]
+    [ValidateNotNull]
     public ServiceBusReceivedMessage? ReceivedMessage { get; set; }
 
     [Parameter(Mandatory = false)]
