@@ -46,16 +46,31 @@ $messages = Receive-AsbMessage -Connection $connection -QueueName <queue>
 $messages|Complete-AsbMessage -Connection $connection
 ```
 
+## Create new message
+1. Create new message
+```powershell
+New-AsbMessage -Body '123456'
+```
+2. Create message from the received message
+```powershell
+New-AsbMessage -ReceivedMessage $message -MessageId (New-Guid) -CustomProperties @{Test = '123456'}
+```
+
+```powershell
+$message|New-AsbMessage -MessageId (New-Guid) -CustomProperties @{Test = '123456'}
+```
+
 ## Send message to a queue
 
 1. Send message to a queue
 ```powershell
 Send-AsbMessage -Connection $connection -Message $message
 ```
-2. Resend message to a queue
+
 ```powershell
-Send-AsbMessage -Connection $connection -ReceivedMessage $message
+New-AsbMessage -Body '1234567'|Send-AsbMessage -Connection $connection -QueueName sender
 ```
+
 
 ## Disconnect from service bus namespace
 

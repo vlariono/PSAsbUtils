@@ -11,7 +11,7 @@ public class SendServiceBusMessage : ServiceBusQueueCmdlet
 {
     private ServiceBusSender? _sender;
 
-    [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = nameof(ServiceBusMessage))]
+    [Parameter(Mandatory = true, ValueFromPipeline = true)]
     public ServiceBusMessage Message { get; set; } = null!;
 
     [Parameter(Mandatory = false)]
@@ -24,7 +24,6 @@ public class SendServiceBusMessage : ServiceBusQueueCmdlet
     }
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-
         await SendMessageAsync(Message, cancellationToken);
     }
 
