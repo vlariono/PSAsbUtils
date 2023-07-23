@@ -6,11 +6,14 @@ using PsAsbUtils.Cmdlets.Interfaces;
 namespace PsAsbUtils.Cmdlets.Cmdlets;
 
 [Cmdlet(VerbsCommunications.Disconnect, $"{PsModule.Prefix}Namespace")]
-public class DisconnectServiceBusNamespace : ServiceBusCmdlet
+public class DisconnectServiceBusNamespace : ServiceBusConnectionCmdlet
 {
+    [Parameter(Mandatory = true,ValueFromPipeline = true, Position = PsPosition.First)]
+    public virtual IServiceBusConnection ClosingConnection { get; set; } = null!;
+
     protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-        Connection.Dispose();
+        CloseConnection(ClosingConnection);
         return Task.CompletedTask;
     }
 }

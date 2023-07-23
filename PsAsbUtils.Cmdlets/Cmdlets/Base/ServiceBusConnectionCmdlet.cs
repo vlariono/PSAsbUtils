@@ -26,4 +26,10 @@ public class ServiceBusConnectionCmdlet:PsAsyncCmdlet
             yield return connection.Key;
         }
     }
+
+    protected static void CloseConnection(IServiceBusConnection connection)
+    {
+        connection.Dispose();
+        s_connections.Remove(connection);
+    }
 }
