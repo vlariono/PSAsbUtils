@@ -41,4 +41,18 @@ public class PsCompletionTests
         Assert.Matches(@"UnitTest\d", completions.First().CompletionText);
     }
 
+        [Fact]
+    public void CompletionException()
+    {
+        var serviceBusAdminMock = new Mock<ServiceBusAdministrationClient>();
+        serviceBusAdminMock
+                .Setup(x => x.GetQueuesAsync(It.IsAny<CancellationToken>()))
+                .Throws<Exception>();
+
+        var completionEngine = new PsCompletion(serviceBusAdminMock.Object);
+        var connectionMock = new Mock<IServiceBusConnection>();
+        var completions = completionEngine.QueueCompletion(connectionMock.Object, "Unit.*", 2);
+        Assert.Empty(completions);
+    }
+
 }

@@ -3,4 +3,5 @@
 **/*.dll
 **/*.so
 **/*.pdb
+**/lcov.info
 publish/**
