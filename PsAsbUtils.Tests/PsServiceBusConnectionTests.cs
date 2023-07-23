@@ -2,6 +2,7 @@ using Azure.Messaging.ServiceBus;
 using Moq;
 using PsAsbUtils.Cmdlets.Core;
 using PsAsbUtils.Cmdlets.Exceptions;
+using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Tests;
 
@@ -15,13 +16,14 @@ public class PsServiceBusConnectionTests
         }
     }
 
-
     [Fact]
     public void ThrowIfClosed()
     {
         var serviceBusConnectionMock = new Mock<ServiceBusClientMock>();
         serviceBusConnectionMock.Setup(c => c.IsClosed).Returns(true);
-        var connection = PSServiceBusConnection.Create(serviceBusConnectionMock.Object);
+
+        var serviceBusCompletionMock = new Mock<ICompletion>();
+        var connection = new PsServiceBusConnection(serviceBusConnectionMock.Object, serviceBusCompletionMock.Object);
 
         Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetReceiver("Test"));
         Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetSender("Test"));
@@ -32,7 +34,9 @@ public class PsServiceBusConnectionTests
     {
         var serviceBusConnectionMock = new Mock<ServiceBusClientMock>();
         serviceBusConnectionMock.Setup(c => c.IsClosed).Returns(true);
-        var connection = PSServiceBusConnection.Create(serviceBusConnectionMock.Object);
+
+        var serviceBusCompletionMock = new Mock<ICompletion>();
+        var connection = new PsServiceBusConnection(serviceBusConnectionMock.Object, serviceBusCompletionMock.Object);
 
         var result = connection.TryGetReceiver("Test", out var receiver);
         Assert.False(result);

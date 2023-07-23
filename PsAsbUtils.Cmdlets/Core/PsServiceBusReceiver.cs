@@ -4,13 +4,13 @@ using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Core;
 
-internal class PSServiceBusReceiver : ServiceBusReceiver, ITrackable
+internal class PsServiceBusReceiver : ServiceBusReceiver, ITrackable
 {
     private readonly ServiceBusReceiver _receiver;
 
     private IMessageTracker? _tracker;
 
-    internal PSServiceBusReceiver(ServiceBusReceiver receiver)
+    internal PsServiceBusReceiver(ServiceBusReceiver receiver)
     {
         _receiver = receiver;
     }

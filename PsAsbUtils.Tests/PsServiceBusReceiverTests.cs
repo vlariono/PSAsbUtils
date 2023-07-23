@@ -21,7 +21,7 @@ public class PsServiceBusReceiverTests
     {
         var tracker = new Mock<IMessageTracker>();
         tracker.Setup(tr => tr.OnReceived(It.IsAny<ServiceBusReceivedMessage>(), It.IsAny<ServiceBusReceiver>()));
-        var receiver = new PSServiceBusReceiver(new ServiceBusReceiverMock());
+        var receiver = new PsServiceBusReceiver(new ServiceBusReceiverMock());
         receiver.Track(tracker.Object);
 
         var message = await receiver.ReceiveMessageAsync();

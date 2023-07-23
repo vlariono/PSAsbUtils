@@ -2,7 +2,7 @@
 
 namespace PsAsbUtils.Cmdlets.Core;
 
-internal class PSAsyncSynchronizer : SynchronizationContext
+internal class PsAsyncSynchronizer : SynchronizationContext
 {
     private readonly BlockingCollection<(SendOrPostCallback CallBack, object? State)> _callbacks;
 
@@ -22,7 +22,7 @@ internal class PSAsyncSynchronizer : SynchronizationContext
         }
     }
 
-    internal PSAsyncSynchronizer()
+    internal PsAsyncSynchronizer()
     {
         _callbacks = new();
     }
@@ -50,8 +50,8 @@ internal class PSAsyncSynchronizer : SynchronizationContext
 
     public static void Run(Func<Task> action, CancellationToken token)
     {
-        var context = new PSAsyncSynchronizer();
-        using var contextSwitch = new ContextSwitch<PSAsyncSynchronizer>(context);
+        var context = new PsAsyncSynchronizer();
+        using var contextSwitch = new ContextSwitch<PsAsyncSynchronizer>(context);
 
         var actionTask = action.Invoke().ContinueWith(t => context.Complete(), token);
         context.Pump(token);

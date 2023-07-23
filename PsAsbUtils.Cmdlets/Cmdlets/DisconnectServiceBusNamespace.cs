@@ -8,8 +8,9 @@ namespace PsAsbUtils.Cmdlets.Cmdlets;
 [Cmdlet(VerbsCommunications.Disconnect, $"{PsModule.Prefix}Namespace")]
 public class DisconnectServiceBusNamespace : ServiceBusCmdlet
 {
-    protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
+    protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-        await Connection.DisposeAsync();
+        Connection.Dispose();
+        return Task.CompletedTask;
     }
 }

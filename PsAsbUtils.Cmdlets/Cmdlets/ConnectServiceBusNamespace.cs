@@ -11,7 +11,7 @@ namespace PsAsbUtils.Cmdlets.Cmdlets;
 
 [Cmdlet(VerbsCommunications.Connect, $"{PsModule.Prefix}Namespace")]
 [OutputType(typeof(IServiceBusConnection))]
-public class ConnectServiceBusNamespace : PsAsyncCmdlet
+public class ConnectServiceBusNamespace : ServiceBusConnectionCmdlet
 {
     private static readonly ServiceBusClientOptions s_serviceBusClientOptions = new()
     {
@@ -36,8 +36,7 @@ public class ConnectServiceBusNamespace : PsAsyncCmdlet
     {
         var client = CreateServiceBusClient();
         var adminClient = CreateServiceBusAdminClient();
-
-        var connection = PSServiceBusConnection.Create(client,adminClient);
+        var connection = CreateConnection(client, adminClient);
 
         WriteObject(connection);
         return Task.CompletedTask;

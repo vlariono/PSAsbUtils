@@ -14,17 +14,17 @@ public abstract class PsAsyncCmdlet : PSCmdlet
 
     sealed protected override void BeginProcessing()
     {
-        PSAsyncSynchronizer.Run(() => BeginProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
+        PsAsyncSynchronizer.Run(() => BeginProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
 
     sealed protected override void ProcessRecord()
     {
-        PSAsyncSynchronizer.Run(() => ProcessRecordAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
+        PsAsyncSynchronizer.Run(() => ProcessRecordAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
 
     sealed protected override void EndProcessing()
     {
-        PSAsyncSynchronizer.Run(() => EndProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
+        PsAsyncSynchronizer.Run(() => EndProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
 
     protected override void StopProcessing()

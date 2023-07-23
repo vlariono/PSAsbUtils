@@ -1,6 +1,7 @@
 using namespace PsAsbUtils.Cmdlets.Interfaces
 using namespace System.Management.Automation
 using namespace PsAsbUtils.Cmdlets.Constants
+using namespace PsAsbUtils.Cmdlets.Core
 
 $completionScript = {
     param(
@@ -12,16 +13,25 @@ $completionScript = {
     )
 
     $connection = [IServiceBusConnection]$BoundParameters['Connection']
-    if($connection -eq $null)
+    if ($null -eq $connection)
     {
-        $connection = $PSDefaultParameterValues[[PsModule]::DefaultConnectionPrefix]
+        $connection = [IServiceBusConnection] $PSDefaultParameterValues[[PsModule]::DefaultConnectionPrefix]
     }
 
-    foreach($queue in $connection.GetQueues()|Where-Object {$_.Name -like "$WordToComplete*"})
+    if ($null -eq $connection)
     {
-        [CompletionResult]::new($queue.Name, $queue.Name,[CompletionResultType]::ParameterValue, $queue.Name)
+        return
+    }
+
+    foreach ($completion in $connection.GetQueueCompletion("^$WordToComplete.*", 10))
+    {
+        [CompletionResult]$completion
     }
 }
 
-$commands = Get-Command -Module PsAsbUtils|Select-Object -ExpandProperty Name
-Register-ArgumentCompleter -CommandName $commands -ParameterName QueueName -ScriptBlock $completionScript
+$commands = Get-Command -Module PsAsbUtils | Select-Object -ExpandProperty Name
+
+if ($null -ne $commands)
+{
+    Register-ArgumentCompleter -CommandName $commands -ParameterName QueueName -ScriptBlock $completionScript
+}

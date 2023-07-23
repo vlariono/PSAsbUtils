@@ -1,10 +1,11 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Management.Automation;
+using System.Runtime.CompilerServices;
 using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 
 namespace PsAsbUtils.Cmdlets.Interfaces;
 
-public interface IServiceBusConnection : IAsyncDisposable
+public interface IServiceBusConnection : IDisposable
 {
     public string Namespace { get; }
     public string Identifier { get; }
@@ -17,5 +18,11 @@ public interface IServiceBusConnection : IAsyncDisposable
 
     public ServiceBusSender GetSender(string queueName);
 
-    public IEnumerable<QueueProperties>? GetQueues();
+    /// <summary>
+    /// Returns powershell argument completion
+    /// </summary>
+    /// <param name="pattern">Pattern to match queue name</param>
+    /// <param name="maxCount">Max number of completions</param>
+    /// <returns></returns>
+    public IEnumerable<CompletionResult> GetQueueCompletion(string pattern, int maxCount);
 }

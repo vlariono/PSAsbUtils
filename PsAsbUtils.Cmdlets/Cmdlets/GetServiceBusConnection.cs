@@ -8,11 +8,11 @@ namespace PsAsbUtils.Cmdlets.Cmdlets;
 
 [Cmdlet(VerbsCommon.Get, $"{PsModule.Prefix}NamespaceConnection")]
 [OutputType(typeof(IServiceBusConnection))]
-public class GetServiceBusNamespaceConnection : PsAsyncCmdlet
+public class GetServiceBusNamespaceConnection : ServiceBusConnectionCmdlet
 {
     protected override Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-        foreach (var connection in PSServiceBusConnection.Get())
+        foreach (var connection in GetConnection())
         {
             WriteObject(connection);
         }
