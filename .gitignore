@@ -3,5 +3,6 @@
 **/*.dll
 **/*.so
 **/*.pdb
+Debug.ps1
 **/lcov.info
 publish/**

@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "dotnet: test",
+			"label": "dotnet: cover",
 			"dependsOn": [],
 			"command": "dotnet",
 			"type": "process",
@@ -18,6 +18,15 @@
 				"kind": "test",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "dotnet",
+			"task": "build",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"label": "dotnet: build"
 		}
 	]
 }
