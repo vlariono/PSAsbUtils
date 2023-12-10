@@ -10,6 +10,8 @@ namespace PsAsbUtils.Cmdlets.Cmdlets;
 [OutputType(typeof(ServiceBusReceivedMessage))]
 public class GetServiceBusMessage : ServiceBusQueueCmdlet
 {
+    private ServiceBusReceiverOptions _options = null!;
+
     [Parameter(Mandatory = false, Position = PsPosition.Second)]
     public int MaxMessages { get; set; } = 100;
 
@@ -19,15 +21,20 @@ public class GetServiceBusMessage : ServiceBusQueueCmdlet
     [Parameter(Mandatory = false, Position = PsPosition.Fourth)]
     public SwitchParameter DeadLetters { get; set; }
 
-    protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
+    protected override Task BeginProcessingAsync(CancellationToken cancellationToken)
     {
-        var options = new ServiceBusReceiverOptions
+        _options = new ServiceBusReceiverOptions
         {
             SubQueue = DeadLetters ? SubQueue.DeadLetter : SubQueue.None,
             ReceiveMode = ServiceBusReceiveMode.PeekLock
         };
 
-        await using var receiver = Connection.GetReceiver(QueueName, options);
+        return Task.CompletedTask;
+    }
+
+    protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
+    {
+        await using var receiver = Connection.GetReceiver(QueueName, _options);
 
         foreach (var message in await receiver.PeekMessagesAsync(MaxMessages, FromSequenceNumber, cancellationToken))
         {
