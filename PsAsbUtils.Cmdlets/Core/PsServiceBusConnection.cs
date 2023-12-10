@@ -24,10 +24,10 @@ internal sealed class PsServiceBusConnection : IServiceBusConnection, IMessageTr
     public string Identifier => _client.Identifier;
     public bool IsClosed => _client.IsClosed;
 
-    public ServiceBusReceiver GetReceiver(string queueName)
+    public ServiceBusReceiver GetReceiver(string queueName, ServiceBusReceiverOptions options)
     {
         ThrowIfClosed();
-        var receiver = new PsServiceBusReceiver(_client.CreateReceiver(queueName));
+        var receiver = new PsServiceBusReceiver(_client.CreateReceiver(queueName, options));
         receiver.Track(this);
         return receiver;
     }

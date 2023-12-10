@@ -12,7 +12,7 @@
 RootModule = 'PsAsbUtils.Cmdlets.dll'
 
 # Version number of this module.
-ModuleVersion = '0.1.3'
+ModuleVersion = '0.1.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ CompanyName = '[none]'
 Copyright = '(c) Vasily Larionov. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'Azure Service Bus messaging utils'
+Description = 'The module is able to receive, send and peek Azure Service Bus messages. Dead letters are supported. It is useful with frameworks like NServiceBus when you need to resubmit a message from an error queue'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''

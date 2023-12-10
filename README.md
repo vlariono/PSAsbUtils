@@ -1,5 +1,5 @@
 # PSAsbUtils
-Azure Service Bus messaging module
+Azure Service Bus messaging module. The module is able to receive, send and peek Azure Service Bus messages. Dead letters are supported. It is useful with frameworks like NServiceBus when you need to resubmit a message from an error queue.
 
 ## Connect to ServiceBus namespace
 

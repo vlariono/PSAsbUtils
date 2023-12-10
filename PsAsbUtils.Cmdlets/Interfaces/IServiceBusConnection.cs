@@ -12,7 +12,7 @@ public interface IServiceBusConnection : IDisposable
 
     public bool IsClosed { get; }
 
-    public ServiceBusReceiver GetReceiver(string queueName);
+    public ServiceBusReceiver GetReceiver(string queueName, ServiceBusReceiverOptions options);
 
     public bool TryGetReceiver(object message, out ServiceBusReceiver? receiver);
 

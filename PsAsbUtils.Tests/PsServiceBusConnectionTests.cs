@@ -25,7 +25,7 @@ public class PsServiceBusConnectionTests
         var serviceBusCompletionMock = new Mock<ICompletion>();
         var connection = new PsServiceBusConnection(serviceBusConnectionMock.Object, serviceBusCompletionMock.Object);
 
-        Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetReceiver("Test"));
+        Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetReceiver("Test", new ServiceBusReceiverOptions()));
         Assert.Throws<PsSbConnectionIsClosedException>(() => connection.GetSender("Test"));
     }
 

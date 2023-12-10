@@ -9,12 +9,21 @@ namespace PsAsbUtils.Cmdlets.Cmdlets;
 [OutputType(typeof(ServiceBusReceivedMessage))]
 public class ReceiveServiceBusMessage : ServiceBusQueueCmdlet
 {
-    [Parameter(Mandatory = false)]
+    [Parameter(Mandatory = false, Position = PsPosition.Second)]
     public TimeSpan MaxWaitTime { get; set; } = TimeSpan.FromSeconds(10);
+
+    [Parameter(Mandatory = false, Position = PsPosition.Third)]
+    public SwitchParameter DeadLetters { get; set; }
 
     protected override async Task ProcessRecordAsync(CancellationToken cancellationToken)
     {
-        var receiver = Connection.GetReceiver(QueueName);
+        var options = new ServiceBusReceiverOptions
+        {
+            SubQueue = DeadLetters ? SubQueue.DeadLetter : SubQueue.None,
+            ReceiveMode = ServiceBusReceiveMode.PeekLock
+        };
+
+        var receiver = Connection.GetReceiver(QueueName, options);
         ServiceBusReceivedMessage? message;
         do
         {
