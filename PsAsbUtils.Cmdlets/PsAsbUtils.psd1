@@ -12,7 +12,7 @@
     RootModule       = 'PsAsbUtils.Cmdlets.dll'
 
     # Version number of this module.
-    ModuleVersion    = '0.1.5'
+    ModuleVersion    = '0.1.6'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -57,7 +57,7 @@
     # RequiredAssemblies = @()
 
     # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-    ScriptsToProcess = @('Startup.ps1')
+    # ScriptsToProcess = @()
 
     # Type files (.ps1xml) to be loaded when importing this module
     # TypesToProcess = @()

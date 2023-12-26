@@ -3,9 +3,12 @@ using PsAsbUtils.Cmdlets.Core;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets.Base;
 
+[PsContext(ContextProvider = nameof(CmdletContext))]
 public abstract class PsAsyncCmdlet : PSCmdlet
 {
     private readonly CancellationTokenSource _cancellationTokenSource;
+
+    private static PsCmdletContext CmdletContext { get; set; }
 
     protected PsAsyncCmdlet()
     {
@@ -14,6 +17,12 @@ public abstract class PsAsyncCmdlet : PSCmdlet
 
     sealed protected override void BeginProcessing()
     {
+        var context = new PsCmdletContext(SessionState);
+        if (CmdletContext != context)
+        {
+            CmdletContext = context;
+        }
+
         PsAsyncSynchronizer.Run(() => BeginProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
 
@@ -45,5 +54,27 @@ public abstract class PsAsyncCmdlet : PSCmdlet
     protected virtual Task EndProcessingAsync(CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
+    }
+
+    private readonly record struct PsCmdletContext : IPsContext
+    {
+        private readonly PSVariable _defaultParameters;
+
+        internal PsCmdletContext(SessionState sessionState)
+        {
+            _defaultParameters = sessionState.PSVariable.Get("PSDefaultParameterValues");
+        }
+
+        public DefaultParameterDictionary? DefaultParameters => _defaultParameters.Value as DefaultParameterDictionary;
+
+        public bool Equals(PsCmdletContext other)
+        {
+            return ReferenceEquals(_defaultParameters, other._defaultParameters);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_defaultParameters.GetHashCode);
+        }
     }
 }

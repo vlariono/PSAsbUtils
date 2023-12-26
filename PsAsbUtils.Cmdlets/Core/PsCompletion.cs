@@ -6,7 +6,7 @@ using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Core;
 
-internal class PsCompletion : ICompletion
+internal sealed class PsCompletion : ICompletion
 {
     private readonly ConditionalWeakTable<IServiceBusConnection, IReadOnlyList<CompletionResult>> _queueCompletion = new();
     private readonly ServiceBusAdministrationClient _client;

@@ -4,10 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
         {
-            "name": ".NET Core Launch (console)",
+            "name": "PowerShell Debug.Ps1",
             "type": "coreclr",
             "request": "launch",
             "externalConsole": true,
@@ -23,8 +21,21 @@
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "console": "internalConsole"
+        },
+        {
+            "name": "Powershell interactive",
+            "type": "coreclr",
+            "request": "launch",
+            "externalConsole": true,
+            "preLaunchTask": {
+                "task": "build",
+                "type": "dotnet"
+            },
+            "program": "/snap/bin/pwsh",
+            "args": [],
+            "cwd": "${workspaceFolder}/PsAsbUtils.Cmdlets/bin/Debug/net8.0",
+            "stopAtEntry": false,
+            "console": "externalTerminal"
         }
-
-
-    ]
+    ],
 }
