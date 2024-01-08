@@ -1,32 +1,5 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-		{
-			"label": "dotnet: cover",
-			"dependsOn": [],
-			"command": "dotnet",
-			"type": "process",
-			"args": [
-				"test",
-				"${workspaceFolder}/PsAsbUtils.Tests/PsAsbUtils.Tests.csproj",
-				"/p:CollectCoverage=true",
-				"/p:CoverletOutputFormat=lcov",
-				"/p:CoverletOutput=./lcov.info"
-			],
-			"problemMatcher": "$msCompile",
-			"group": {
-				"kind": "test",
-				"isDefault": true
-			}
-		},
-		{
-			"type": "dotnet",
-			"task": "build",
-			"problemMatcher": [
-				"$msCompile"
-			],
-			"group": "build",
-			"label": "dotnet: build"
-		}
 	]
 }
