@@ -100,7 +100,7 @@ internal class PsServiceBusReceiver : ServiceBusReceiver, ITrackable
         return message;
     }
 
-    public override IAsyncEnumerable<ServiceBusReceivedMessage> ReceiveMessagesAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public override IAsyncEnumerable<ServiceBusReceivedMessage> ReceiveMessagesAsync(CancellationToken cancellationToken = default)
     {
         return _receiver.ReceiveMessagesAsync(cancellationToken);
     }

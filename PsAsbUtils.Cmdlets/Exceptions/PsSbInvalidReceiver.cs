@@ -15,8 +15,4 @@ public class PsSbInvalidReceiver : Exception
     public PsSbInvalidReceiver(string? message, Exception? innerException) : base(message, innerException)
     {
     }
-
-    protected PsSbInvalidReceiver(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

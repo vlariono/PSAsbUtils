@@ -15,8 +15,4 @@ public class PsSbException : Exception
     public PsSbException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
-
-    protected PsSbException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

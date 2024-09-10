@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace PsAsbUtils.Cmdlets.Exceptions;
+﻿namespace PsAsbUtils.Cmdlets.Exceptions;
 
 public class PsSbConnectionIsClosedException : PsSbException
 {
@@ -13,10 +11,6 @@ public class PsSbConnectionIsClosedException : PsSbException
     }
 
     public PsSbConnectionIsClosedException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected PsSbConnectionIsClosedException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
     }
 }

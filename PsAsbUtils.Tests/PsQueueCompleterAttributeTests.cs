@@ -11,7 +11,7 @@ namespace PsAsbUtils.Tests;
 [PsContext(ContextProvider = nameof(Context))]
 public class ContextProviderMock
 {
-    internal static IPsContext Context { get; set; }
+    internal static IPsContext? Context { get; set; }
 }
 
 public class PsQueueCompleterAttributeTests : IClassFixture<ContextProviderMock>
@@ -33,7 +33,7 @@ public class PsQueueCompleterAttributeTests : IClassFixture<ContextProviderMock>
 
         var completer = attribute.Create();
         Assert.IsType<PsEmptyArgumentCompleter>(completer);
-        Assert.Empty(completer.CompleteArgument(string.Empty, string.Empty, string.Empty, null, new Hashtable()));
+        Assert.Empty(completer.CompleteArgument(string.Empty, string.Empty, string.Empty, null!, new Hashtable()));
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class PsQueueCompleterAttributeTests : IClassFixture<ContextProviderMock>
 
         var completer = attribute.Create();
         Assert.IsType<PsEmptyArgumentCompleter>(completer);
-        Assert.Empty(completer.CompleteArgument(string.Empty, string.Empty, string.Empty, null, new Hashtable()));
+        Assert.Empty(completer.CompleteArgument(string.Empty, string.Empty, string.Empty, null!, new Hashtable()));
     }
 
     [Fact]
@@ -75,7 +75,7 @@ public class PsQueueCompleterAttributeTests : IClassFixture<ContextProviderMock>
         };
 
         var completer = attribute.Create();
-        var result = completer.CompleteArgument("test", "test", "test", null, new Hashtable());
+        var result = completer.CompleteArgument("test", "test", "test", null!, new Hashtable());
         Assert.Single(result);
         Assert.Equal("test", result.First().CompletionText);
     }
@@ -119,7 +119,7 @@ public class PsQueueCompleterAttributeTests : IClassFixture<ContextProviderMock>
                 new PSObject(connectionMock.Object)
             }
         };
-        var result = completer.CompleteArgument("test", "test", "test", null, dictionaryMock);
+        var result = completer.CompleteArgument("test", "test", "test", null!, dictionaryMock);
         Assert.Single(result);
         Assert.Equal("test", result.First().CompletionText);
     }
@@ -136,7 +136,7 @@ public class PsQueueCompleterAttributeTests : IClassFixture<ContextProviderMock>
         };
 
         var completer = attribute.Create();
-        var result = completer.CompleteArgument("test", "test", "test", null, new Hashtable());
+        var result = completer.CompleteArgument("test", "test", "test", null!, new Hashtable());
         Assert.Empty(result);
     }
 }
