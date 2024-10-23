@@ -46,6 +46,11 @@ $messages = Receive-AsbMessage -Connection $connection -QueueName <queue>
 $messages|Complete-AsbMessage -Connection $connection
 ```
 
+4. Move received message to dead letters queue (DLQ)
+```powershell
+$messages|Kill-AsbMessage -DeadLetterReason "Some reason" -Connection $connection
+```
+
 ## Create new message
 1. Create new message
 ```powershell

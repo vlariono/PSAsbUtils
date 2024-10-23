@@ -12,7 +12,7 @@
     RootModule       = 'PsAsbUtils.Cmdlets.dll'
 
     # Version number of this module.
-    ModuleVersion    = '0.1.7'
+    ModuleVersion    = '0.1.8'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -81,6 +81,7 @@
         'New-AsbMessage'
         'Receive-AsbMessage'
         'Send-AsbMessage'
+        'Kill-AsbMessage'
     )
 
     # Variables to export from this module
