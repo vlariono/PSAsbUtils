@@ -5,7 +5,7 @@ using PsAsbUtils.Cmdlets.Cmdlets.Base;
 using PsAsbUtils.Cmdlets.Constants;
 using PsAsbUtils.Cmdlets.Interfaces;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Core;
 
 internal class PsArgumentCompleter : IArgumentCompleter
 {

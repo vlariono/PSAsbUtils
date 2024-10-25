@@ -1,4 +1,6 @@
-﻿namespace PsAsbUtils.Cmdlets;
+﻿using PsAsbUtils.Cmdlets.Interfaces;
+
+namespace PsAsbUtils.Cmdlets.Core;
 
 /// <summary>
 /// Defines context provider property.

@@ -1,11 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
-using PsAsbUtils.Cmdlets.Cmdlets.Base;
 using PsAsbUtils.Cmdlets.Core;
 using PsAsbUtils.Cmdlets.Interfaces;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Cmdlets.Base;
 
 public class ServiceBusConnectionCmdlet:PsAsyncCmdlet
 {

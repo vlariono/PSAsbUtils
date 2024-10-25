@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Extensions;
 
 public static class DictionaryExtension
 {

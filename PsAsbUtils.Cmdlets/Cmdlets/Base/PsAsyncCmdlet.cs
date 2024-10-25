@@ -1,5 +1,6 @@
 using System.Management.Automation;
 using PsAsbUtils.Cmdlets.Core;
+using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Cmdlets.Cmdlets.Base;
 

@@ -4,6 +4,7 @@ using Moq;
 using PsAsbUtils.Cmdlets;
 using PsAsbUtils.Cmdlets.Cmdlets.Base;
 using PsAsbUtils.Cmdlets.Constants;
+using PsAsbUtils.Cmdlets.Core;
 using PsAsbUtils.Cmdlets.Interfaces;
 
 namespace PsAsbUtils.Tests;

@@ -3,8 +3,9 @@ using System.Management.Automation;
 using Azure.Messaging.ServiceBus;
 using PsAsbUtils.Cmdlets.Cmdlets.Base;
 using PsAsbUtils.Cmdlets.Constants;
+using PsAsbUtils.Cmdlets.Extensions;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Cmdlets;
 
 [Cmdlet(VerbsCommon.New, $"{PsModule.Prefix}Message")]
 [OutputType(typeof(ServiceBusMessage))]

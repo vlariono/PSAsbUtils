@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using System.Management.Automation.Language;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Core;
 
 internal class PsEmptyArgumentCompleter : IArgumentCompleter
 {

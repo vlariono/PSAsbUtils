@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Interfaces;
 
 internal interface IPsContext
 {

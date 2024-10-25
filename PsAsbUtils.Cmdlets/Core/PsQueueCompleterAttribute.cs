@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Management.Automation;
-using System.Management.Automation.Language;
+﻿using System.Management.Automation;
 using System.Reflection;
+using PsAsbUtils.Cmdlets.Interfaces;
 
-namespace PsAsbUtils.Cmdlets;
+namespace PsAsbUtils.Cmdlets.Core;
 
 internal sealed class PsQueueCompleterAttribute : ArgumentCompleterAttribute, IArgumentCompleterFactory
 {

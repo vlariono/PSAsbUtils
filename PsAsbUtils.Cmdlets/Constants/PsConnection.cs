@@ -1,4 +1,4 @@
-﻿namespace PsAsbUtils.Cmdlets;
+﻿namespace PsAsbUtils.Cmdlets.Constants;
 
 public static class PsConnection
 {
