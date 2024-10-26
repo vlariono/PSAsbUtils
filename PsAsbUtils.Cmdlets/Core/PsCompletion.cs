@@ -21,10 +21,6 @@ internal sealed class PsCompletion : ICompletion
     public IEnumerable<CompletionResult> QueueCompletion(IServiceBusConnection connection, string pattern, int maxCount)
     {
         _completionTask = RefreshQueueCompletionAsync(connection);
-        IEnumerable<CompletionResult> GetResult(IReadOnlyList<CompletionResult> result)
-        {
-            return result.Where(p => Regex.IsMatch(p.CompletionText, pattern, RegexOptions.IgnoreCase)).Take(maxCount);
-        }
 
         if (_queueCompletion.TryGetValue(connection, out var result))
         {
@@ -38,6 +34,11 @@ internal sealed class PsCompletion : ICompletion
         }
 
         return Array.Empty<CompletionResult>();
+
+        IEnumerable<CompletionResult> GetResult(IReadOnlyList<CompletionResult> completionResults)
+        {
+            return completionResults.Where(p => Regex.IsMatch(p.CompletionText, pattern, RegexOptions.IgnoreCase)).Take(maxCount);
+        }
     }
 
     private async Task RefreshQueueCompletionAsync(IServiceBusConnection connection)

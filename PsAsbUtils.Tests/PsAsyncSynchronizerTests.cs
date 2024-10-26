@@ -16,7 +16,7 @@ public class PsAsyncSynchronizerTests
     public void PumpWorks()
     {
         var origin = SynchronizationContext.Current;
-        PsAsyncSynchronizer synchronizer = new PsAsyncSynchronizer();
+        var synchronizer = new PsAsyncSynchronizer();
         var result = false;
         SendOrPostCallback callBack = state => result = state is bool s && s;
 

@@ -23,15 +23,12 @@ internal class PsArgumentCompleter : IArgumentCompleter
         {
             connectionObject = pSObject.BaseObject;
         }
-        
+
         var connection = connectionObject as IServiceBusConnection;
         connection ??= _context.DefaultParameters?[PsModule.DefaultConnectionPrefix] as IServiceBusConnection;
 
-        if(connection is null)
-        {
-            return Array.Empty<CompletionResult>();
-        }
-
-        return connection.GetQueueCompletion($"^{wordToComplete}.*", 10);
+        return connection is null
+            ? Array.Empty<CompletionResult>()
+            : connection.GetQueueCompletion($"^{wordToComplete}.*", 10);
     }
 }

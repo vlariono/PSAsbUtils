@@ -63,7 +63,7 @@ internal class PsServiceBusReceiver : ServiceBusReceiver, ITrackable
         return _receiver.DisposeAsync();
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return _receiver.Equals(obj);
     }
