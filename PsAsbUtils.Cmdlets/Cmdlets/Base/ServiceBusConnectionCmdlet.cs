@@ -8,7 +8,7 @@ namespace PsAsbUtils.Cmdlets.Cmdlets.Base;
 
 public class ServiceBusConnectionCmdlet:PsAsyncCmdlet
 {
-    protected static readonly ConditionalWeakTable<IServiceBusConnection, ServiceBusClient> s_connections = new();
+    private static readonly ConditionalWeakTable<IServiceBusConnection, ServiceBusClient> s_connections = new();
 
     protected static IServiceBusConnection CreateConnection(ServiceBusClient client, ServiceBusAdministrationClient adminClient)
     {
@@ -20,10 +20,7 @@ public class ServiceBusConnectionCmdlet:PsAsyncCmdlet
 
     protected static IEnumerable<IServiceBusConnection> GetConnection()
     {
-        foreach (var connection in s_connections)
-        {
-            yield return connection.Key;
-        }
+        return s_connections.Select(connection => connection.Key);
     }
 
     protected static void CloseConnection(IServiceBusConnection connection)

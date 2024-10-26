@@ -1,22 +1,18 @@
 using System.Management.Automation;
 using PsAsbUtils.Cmdlets.Core;
 using PsAsbUtils.Cmdlets.Interfaces;
+// ReSharper disable InconsistentNaming
 
 namespace PsAsbUtils.Cmdlets.Cmdlets.Base;
 
 [PsContext(ContextProvider = nameof(CmdletContext))]
 public abstract class PsAsyncCmdlet : PSCmdlet
 {
-    private readonly CancellationTokenSource _cancellationTokenSource;
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     private static PsCmdletContext CmdletContext { get; set; }
 
-    protected PsAsyncCmdlet()
-    {
-        _cancellationTokenSource = new CancellationTokenSource();
-    }
-
-    sealed protected override void BeginProcessing()
+    protected sealed override void BeginProcessing()
     {
         var context = new PsCmdletContext(SessionState);
         if (CmdletContext != context)
@@ -27,12 +23,12 @@ public abstract class PsAsyncCmdlet : PSCmdlet
         PsAsyncSynchronizer.Run(() => BeginProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
 
-    sealed protected override void ProcessRecord()
+    protected sealed override void ProcessRecord()
     {
         PsAsyncSynchronizer.Run(() => ProcessRecordAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
 
-    sealed protected override void EndProcessing()
+    protected sealed override void EndProcessing()
     {
         PsAsyncSynchronizer.Run(() => EndProcessingAsync(_cancellationTokenSource.Token), _cancellationTokenSource.Token);
     }
