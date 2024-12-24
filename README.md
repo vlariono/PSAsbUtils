@@ -51,6 +51,11 @@ $messages|Complete-AsbMessage -Connection $connection
 $messages|Kill-AsbMessage -DeadLetterReason "Some reason" -Connection $connection
 ```
 
+5. Unlock received message to make it available for processing
+```powershell
+$message|Unlock-AsbMessage
+```
+
 ## Create new message
 1. Create new message
 ```powershell
